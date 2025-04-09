@@ -17,12 +17,12 @@ intents.messages = True
 intents.message_content = True
 client = discord.Client(intents=intents)
 
-usuarios_especificos = ["kynoa"]
+usuarios_especificos = ["Coloque o nome do usuário aqui"]
 
-# Lista de IDs dos canais onde a mensagem será enviada
+# Lista de IDs dos canais onde a mensagem será enviada (pode colocar quantos canais quiser) 
 """CANAL_IDS = [
-    1342217517900496947,  # Primeiro canal
-    763290122720378880  # Segundo canal
+    2222222222222222222,  # Primeiro canal
+    1111111111111111111  # Segundo canal
 ]"""
 
 
@@ -54,12 +54,13 @@ async def on_ready():
     for canal_id in CANAL_IDS:
         channel = client.get_channel(canal_id)
         if channel:
-            await channel.send("Olá! O Ro-Bot acabou de ser iniciado. Estou pronto para ajudar!")
+            await channel.send("Olá! O NOME DO BOT acabou de ser iniciado. Estou pronto para ajudar!")
             print(f"Mensagem enviada ao canal {channel.name} (ID: {canal_id})")
         else:
             print(f"Erro: Canal com ID {canal_id} não encontrado.")
 
 
+# Comando para uma brincadeira (pode substituir por outra interação)
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -69,32 +70,34 @@ async def on_message(message):
         await message.channel.send("Pong!")
         return
 
+# Resposta ao usuário que discer "olá"
     if message.content.lower().startswith(("olá", "ola", "olá!", "ola!", "olaa")):
         if str(message.author) in usuarios_especificos:
             await message.channel.send(f"Olá {str(message.author).title()}!")
-        elif str(message.author) == "anajcs0431":
-            await message.channel.send('Oi gatinha! Tá solteira?😘')
+        elif str(message.author) == "NOME DA PESSOA":
+            await message.channel.send('COLOQUE SUA MENSAGEM AQUI')
         else:
-            await message.channel.send("Olá, sou o Ro-Bot!")
+            await message.channel.send("Olá, sou o NOME DO BOT!")
         return
 
-    if message.content.lower().startswith("cade"):
-        await message.channel.send("Cadeeeeee?")
+    if message.content.lower().startswith("XXX"):
+        await message.channel.send("XXXX")
         await asyncio.sleep(1)
-        await message.channel.send("Mostra as plays!")
+        await message.channel.send("XXXX")
         return
-
-    if str(message.channel) == "📷・fotos・📷" and message.content != "":
+        
+# Canal especializado em receber apenas imagens com texto! Caso enviem somente texto, a mensagem será automáticamente deletada
+    if str(message.channel) == "NOME DO CANAL" and message.content != "":
         await message.channel.purge(limit=1)
         return
-
-    if message.content.startswith("!ro"):
-        prompt = message.content[len("!ro"):].strip()
+# Comando para chamar o bot com a IA desejada
+    if message.content.startswith("!+NOMEDOBOT"):
+        prompt = message.content[len("!+NOMEDOBOT"):].strip()
         if prompt:
             response = get_gemini_response(prompt)
             await message.channel.send(response)
         else:
-            await message.channel.send("Digite algo após '!ro'!")
+            await message.channel.send("Digite algo após '!+NOMEDOBOT'!")
         return
 
 
